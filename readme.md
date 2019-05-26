@@ -1,4 +1,4 @@
-# redux 使用说明
+# React-Redux 使用说明
 
 	1. clone form git 
 	2. cd root 
