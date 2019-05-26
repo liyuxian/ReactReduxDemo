@@ -10,48 +10,56 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View ,Button} from 'react-native';
 import { clickButtonAction } from "./src/actions";
 import { myStore } from "./src/store";
-
+import { Provider ,connect} from 'react-redux'
 
 // 打印初始状态
 console.log(myStore.getState())
 
-// 打印action后回调状态 并刷新UI
-
-myStore.subscribe(() => {
-       console.log(myStore.getState()) 
-        refresh()
-    }
-)
-
-function refresh() {
-  this.setState(myStore.getState())
-}
-
 
 export default class App extends Component{
-
-  constructor(props) {
-    super(props);
-    refresh= refresh.bind(this);
-  }
-
   render() {
+      const { clickButtonAction ,showText } = this.props;
     return (
+      //Provider 包裹根组件  传入  store
+      <Provider store  = {myStore}>
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Button
           color = 'blue'
           title = 'click to dispatch action from action creator'
           onPress = {()=>{
-            myStore.dispatch(clickButtonAction())
+            myStore.dispatch(clickButtonAction)
            }
           }
         ></Button>
-           <Text style={styles.welcome}>{myStore.getState().showText}</Text>
+           <Text style={styles.welcome}> showText </Text>
       </View>
+
+      </Provider>
     );
   }
 }
+
+const  mapStateToProps = (state) =>{
+  return {
+    showText : state.showText 
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    clickButtonAction : clickButtonAction
+  }
+}
+
+
+
+connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+
 
 const styles = StyleSheet.create({
   container: {
