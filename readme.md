@@ -3,7 +3,8 @@
 	1. clone form git 
 	2. cd root 
 	3. npm install 
-	4. react-native run-android/ios
+	4. react-native run-android/ios 
+	(请确保项目目录有Android 或者 ios )
 
 ## 1. Provider 包裹跟布局 
 
